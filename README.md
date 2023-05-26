@@ -432,4 +432,14 @@ Podrán ver como usar click para hacer un programa de linea de comandos en el mo
 
 También están en los archivos los pasos para instalarlo y ejecutarlo desde la terminal.
 
+--------------------------------------------
+
+## Estructura de un proyecto en Python: (Arquitectura):
+
+Division (estructura) de nuestro programa:
+<br>
+👀👀👀Interface --------------> Comandos
+👾👾👾Logica ---------------> Servicios
+🙋🙋🙋ObjetosInteractivos --> Clientes
+
 

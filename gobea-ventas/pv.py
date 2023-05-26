@@ -1,11 +1,14 @@
 import click
 from clients import commands as clients_commands
 
+CLIENTS_TABLE = '.clients.csv'
+
 # Definir nuestro punto de entrada, a click se lo informamos así:
 @click.group() 
 @click.pass_context # nos devuelve un objeto contexto que inicializamos en la funcion
 def cli(ctx):
     ctx.obj = {} 
+    ctx.obj['clients_table'] = CLIENTS_TABLE
 
 # Registro los comandos que importe de mi archivo commands.py:
 cli.add_command(clients_commands.all) # Para eso usamos el alias al final de commands.py

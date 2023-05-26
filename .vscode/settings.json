@@ -23,5 +23,8 @@
         "titleBar.inactiveBackground": "#ea587899",
         "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.remoteColor": "#ea5878"
+    "peacock.remoteColor": "#ea5878",
+    "python.analysis.extraPaths": [
+        "./gobea-ventas/clients"
+    ]
 }
