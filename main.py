@@ -1,17 +1,29 @@
-clients = [
-    {
-        'name': 'Lautaro',
-        'company': 'Google',
-        'email': 'lautaro@google.com',
-        'position': 'Software engineer'
-    },
-    {
-        'name': 'Nicole',
-        'company': 'Facebook',
-        'email': 'nicole@facebook.com',
-        'position': 'Data engineer'
-    }
-]
+import csv
+import os
+
+CLIENT_TABLE = '.clients.csv'
+CLIENT_SCHEMA = ['name', 'company', 'email', 'position']
+clients = []
+
+def _initialize_clients_from_storage():
+    with open(CLIENT_TABLE, mode='r') as f:
+        reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
+
+        for row in reader:
+            # Agrego cada cliente desde el csv como si fuera un diccionario:
+            clients.append(row)
+
+def _save_clients_to_storage():
+    tmp_table_name = f'{CLIENT_TABLE}.tmp' # Convención para registro de tablas temporales
+    with open(tmp_table_name, mode='w') as f:
+        writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
+        writer.writerows(clients)
+
+        # Remueve la tabla original
+        os.remove(CLIENT_TABLE)
+        # Reescribe la tabla temporal como tabla original
+        os.rename(tmp_table_name, CLIENT_TABLE)
+
 
 # Va a recibir el diccionario de cliente
 def create_client(client):
@@ -25,8 +37,10 @@ def create_client(client):
 
 
 def list_clients():
+    print('id | name | company | email | position')
+    print('*'*50)
     for idx, client in enumerate(clients):
-        print(f'{idx}: {client["name"]} | {client["company"]} | {client["email"]} | {client["position"]}')
+        print(f'{idx} | {client["name"]} | {client["company"]} | {client["email"]} | {client["position"]}')
 
 
 def update_client(client_id, new_client):
@@ -71,12 +85,15 @@ def _print_welcome():
     print('[R]ead client')
     print('[U]pdate client')
     print('[D]elete client')
+    print('[L]ist all clients')
 
 def _get_client_field(field_name):
     return input(f'What is the client {field_name}? ')
 
 # Entry point o punto de comienzo de nuestro codigo: 
 if __name__ == '__main__':
+    _initialize_clients_from_storage()
+
     _print_welcome()
 
     command = input()
@@ -107,5 +124,9 @@ if __name__ == '__main__':
             "position": _get_client_field("position")
         }
         update_client(client_id, new_client)
+    elif command == 'L':
+        list_clients()
     else:
         print('Invalid command')
+
+    _save_clients_to_storage()
