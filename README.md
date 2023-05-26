@@ -426,6 +426,10 @@ Click también realiza las conversiones de tipo por nosotros. Esta basado muy fu
 
 Tutorial en Youtube sobre Click: https://www.youtube.com/watch?v=riQd3HNbaDk
 
+------------------------------------------------
 
+Podrán ver como usar click para hacer un programa de linea de comandos en el modulo de este proyecto llamado "gobea-ventas".
+
+También están en los archivos los pasos para instalarlo y ejecutarlo desde la terminal.
 
 

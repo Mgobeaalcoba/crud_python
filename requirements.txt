@@ -1,0 +1,2 @@
+click==8.1.3
+-e git+ssh://git@github.com/Mgobeaalcoba/crud_python.git@6763ccd86487ab5312addab50263b6de1b2b7729#egg=pv&subdirectory=gobea-ventas
