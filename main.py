@@ -1,14 +1,14 @@
 clients = [
     {
-        'name': 'Pablo',
+        'name': 'Lautaro',
         'company': 'Google',
-        'email': 'pablo@google.com',
+        'email': 'lautaro@google.com',
         'position': 'Software engineer'
     },
     {
-        'name': 'Ricardo',
+        'name': 'Nicole',
         'company': 'Facebook',
-        'email': 'ricardo@facebook.com',
+        'email': 'nicole@facebook.com',
         'position': 'Data engineer'
     }
 ]
@@ -26,38 +26,42 @@ def create_client(client):
 
 def list_clients():
     for idx, client in enumerate(clients):
-        print(f'{idx}: {client}')
+        print(f'{idx}: {client["name"]} | {client["company"]} | {client["email"]} | {client["position"]}')
 
 
-def update_client(client_name, updated_client_name):
+def update_client(client_id, new_client):
     # global clients
-    if client_name in clients:
-        index = clients.index(client_name)
-        clients[index] = updated_client_name
+    # print(f"client_id: {client_id} | enumerate(clients): {enumerate(clients)} | new_client: {new_client}")
+    if client_id < len(clients):
+        clients[client_id] = new_client
         list_clients()
     else:
         print('Client is not in clients list.')
         list_clients()
 
 
-def delete_client(client_name):
+def delete_client(client_id):
     # global clients
-    if client_name in clients:
-        clients.remove(client_name)
+    if client_id < len(clients):
+        clients.pop(client_id)
         list_clients()
     else:
         print('Client is not in clients list.')
         list_clients()
 
 
-def search_client(client_name):
+def search_client(client_id):
     # global clients
-    for client in clients:
-        if client != client_name:
+    find_id = False
+    for idx, client in enumerate(clients):
+        if idx != client_id:
             continue
         else:
-            print(True)
-
+            find_id = True
+            print(find_id)
+            print(f'{idx}: {client["name"]} | {client["company"]} | {client["email"]} | {client["position"]}')
+    if not find_id:
+        print(f"Don't find the client id: {client_id}")
 
 def _print_welcome():
     print('WELCOME TO GOBEA VENTAS')
@@ -68,9 +72,8 @@ def _print_welcome():
     print('[U]pdate client')
     print('[D]elete client')
 
-
-def _get_client_name():
-    return input('What is the client name? ')
+def _get_client_field(field_name):
+    return input(f'What is the client {field_name}? ')
 
 # Entry point o punto de comienzo de nuestro codigo: 
 if __name__ == '__main__':
@@ -83,20 +86,26 @@ if __name__ == '__main__':
         client = {
             'name': _get_client_field('name'),
             'company': _get_client_field('company'),
-
+            'email': _get_client_field('email'),
+            'position': _get_client_field('position'),
         }
-        create_client(client_name)
+
+        create_client(client)
         list_clients()
     elif command == 'R':
-        client_name = _get_client_name()
-        search_client(client_name)
-        list_clients()
+        client_id = int(_get_client_field("id"))
+        search_client(client_id)
     elif command == 'D':
-        client_name = _get_client_name()
-        delete_client(client_name)
+        client_id = int(_get_client_field("id"))
+        delete_client(client_id)
     elif command == 'U':
-        client_name = _get_client_name()
-        updated_client_name = input('What is the new client name? ')
-        update_client(client_name, updated_client_name)
+        client_id = int(_get_client_field("id"))
+        new_client = {
+            "name": _get_client_field("name"),
+            "company": _get_client_field("company"),
+            "email": _get_client_field("email"),
+            "position": _get_client_field("position")
+        }
+        update_client(client_id, new_client)
     else:
         print('Invalid command')
