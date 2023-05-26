@@ -1,11 +1,25 @@
-clients = ['pablo', 'ricardo']
+clients = [
+    {
+        'name': 'Pablo',
+        'company': 'Google',
+        'email': 'pablo@google.com',
+        'position': 'Software engineer'
+    },
+    {
+        'name': 'Ricardo',
+        'company': 'Facebook',
+        'email': 'ricardo@facebook.com',
+        'position': 'Data engineer'
+    }
+]
 
-def create_client(client_name):
+# Va a recibir el diccionario de cliente
+def create_client(client):
     # Para usar una variable global dentro de una función debo declararla como global
     # global clients
     # Los operadores de pertenencia funcionan igual en las listas que en los strings: 
-    if client_name not in clients:
-        clients.append(client_name)
+    if client not in clients:
+        clients.append(client)
     else:
         print('Client already is in the client\'s list.')
 
@@ -66,7 +80,11 @@ if __name__ == '__main__':
     command = command.upper()
 
     if command == 'C':
-        client_name = _get_client_name()
+        client = {
+            'name': _get_client_field('name'),
+            'company': _get_client_field('company'),
+
+        }
         create_client(client_name)
         list_clients()
     elif command == 'R':
